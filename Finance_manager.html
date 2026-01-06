@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Manager</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    [data-theme="dark"] {
+      --bg-primary: #1a202c;
+      --bg-secondary: #2d3748;
+      --text-primary: #f7fafc;
+      --text-secondary: #e2e8f0;
+      --accent-color: #38b2ac;
+    }
+    [data-theme="light"] {
+      --bg-primary: #f7fafc;
+      --bg-secondary: #ffffff;
+      --text-primary: #1a202c;
+      --text-secondary: #4a5568;
+      --accent-color: #4299e1;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      padding: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    h1, h2 {
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: var(--bg-secondary);
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    #toggle-theme {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+
+    #update-income {
+      background-color: #3b82f6;
+      color: white;
+      margin-top: 1rem;
+    }
+    #update-income:hover {
+      background-color: #2563eb;
+    }
+
+    .add-expense-btn {
+      background-color: #22c55e;
+      color: white;
+      width: 100%;
+    }
+    .add-expense-btn:hover {
+      background-color: #16a34a;
+    }
+
+    .delete-btn {
+      background-color: #ef4444;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+    }
+    .delete-btn:hover {
+      background-color: #dc2626;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.75rem;
+    }
+    thead {
+      border-bottom: 1px solid #d1d5db;
+    }
+    tr {
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .text-gray {
+      color: var(--text-secondary);
+    }
+
+    .text-xl { font-size: 1.25rem; }
+    .text-2xl { font-size: 1.5rem; font-weight: bold; }
+    .alert {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+  transition: opacity 0.5s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+  </style>
+</head>
+<body data-theme="light">
+  <div class="container">
+    <header class="flex mb-8">
+      <h1>💰 Finance Manager</h1>
+      <button id="toggle-theme">🌓 Toggle Theme</button>
+    </header>
+
+    <section class="card">
+      <div id="budget-alert" class="alert hidden">
+  ⚠️ Warning: Your expenses have exceeded 80% of your income!
+</div>
+
+      <h2>Income & Savings</h2>
+      <div class="grid grid-2">
+        <div>
+          <label>Monthly Income (₹)</label>
+          <input id="income" type="number">
+        </div>
+        <div>
+          <label>Savings Target (%)</label>
+          <input id="savings-target" type="number" min="0" max="100">
+        </div>
+      </div>
+      <button id="update-income">Update</button>
+      
+      <div class="grid grid-3" style="margin-top:1.5rem;">
+        <div class="card" style="text-align:center;">
+          <p class="text-gray">Total Income</p>
+          <p id="total-income" class="text-2xl">₹0</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <p class="text-gray">Savings</p>
+          <p id="total-savings" class="text-2xl">₹0</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <p class="text-gray">Expenses</p>
+          <p id="total-expenses" class="text-2xl">₹0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expense Management -->
+    <section class="card">
+      <h2>Add Expense</h2>
+      <form id="expense-form" class="grid grid-4">
+        <div>
+          <label>Date</label>
+          <input id="expense-date" type="date" required>
+        </div>
+        <div>
+          <label>Category</label>
+          <select id="expense-category" required>
+            <option value="">Select</option>
+            <option>Food</option>
+            <option>Housing</option>
+            <option>Transport</option>
+            <option>Entertainment</option>
+            <option>Health</option>
+            <option>Others</option>
+          </select>
+        </div>
+        <div>
+          <label>Amount (₹)</label>
+          <input id="expense-amount" type="number" min="1" required>
+        </div>
+        <div style="display:flex; align-items:end;">
+          <button type="submit" class="add-expense-btn">Add Expense</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Expense Table -->
+    <section class="card">
+      <h2>Recent Expenses</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="expense-table-body">
+          <!-- Expenses will populate here -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Charts -->
+    <section class="card">
+      <h2>Money Flow</h2>
+      <div class="grid grid-2">
+        <div>
+          <canvas id="expense-chart"></canvas>
+        </div>
+        <div>
+          <canvas id="savings-chart"></canvas>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Storage Keys
+    const STORAGE_KEYS = {
+      INCOME: "finance_manager_income",
+      SAVINGS_TARGET: "finance_manager_savings_target",
+      EXPENSES: "finance_manager_expenses"
+    };
+
+    // DOM Elements
+    const incomeInput = document.getElementById("income");
+    const savingsTargetInput = document.getElementById("savings-target");
+    const updateIncomeBtn = document.getElementById("update-income");
+    const expenseForm = document.getElementById("expense-form");
+    const expenseTableBody = document.getElementById("expense-table-body");
+    const totalIncomeDisplay = document.getElementById("total-income");
+    const totalSavingsDisplay = document.getElementById("total-savings");
+    const totalExpensesDisplay = document.getElementById("total-expenses");
+    const toggleThemeBtn = document.getElementById("toggle-theme");
+    const expenseChartCtx = document.getElementById("expense-chart");
+    const savingsChartCtx = document.getElementById("savings-chart");
+
+    // State Variables
+    let income = 0;
+    let savingsTarget = 20; // Default savings percentage
+    let expenses = [];
+
+    // Initialize Charts
+    let expenseChart, savingsChart;
+
+    // ===== UTILITY FUNCTIONS ===== //
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
+    }
+
+    function calculateSavings() {
+      return income * (savingsTarget / 100);
+    }
+
+    function calculateExpensesTotal() {
+      return expenses.reduce((sum, expense) => sum + expense.amount, 0);
+    }
+
+    function getRemainingBalance() {
+      return income - calculateSavings() - calculateExpensesTotal();
+    }
+
+    // ===== STORAGE FUNCTIONS ===== //
+    function saveIncome(value) {
+      localStorage.setItem(STORAGE_KEYS.INCOME, JSON.stringify(value));
+    }
+
+    function saveSavingsTarget(value) {
+      localStorage.setItem(STORAGE_KEYS.SAVINGS_TARGET, JSON.stringify(value));
+    }
+
+    function saveExpenses(expenses) {
+      localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses));
+    }
+
+    function loadData() {
+      const savedIncome = localStorage.getItem(STORAGE_KEYS.INCOME);
+      income = savedIncome ? JSON.parse(savedIncome) : 0;
+
+      const savedSavingsTarget = localStorage.getItem(STORAGE_KEYS.SAVINGS_TARGET);
+      savingsTarget = savedSavingsTarget ? JSON.parse(savedSavingsTarget) : 20;
+
+      const savedExpenses = localStorage.getItem(STORAGE_KEYS.EXPENSES);
+      expenses = savedExpenses ? JSON.parse(savedExpenses) : [];
+
+      updateUI();
+    }
+
+    // ===== UI UPDATE FUNCTIONS ===== //
+    function updateIncomeSection() {
+      incomeInput.value = income;
+      savingsTargetInput.value = savingsTarget;
+    }
+
+    function updateSummary() {
+      const savings = calculateSavings();
+      const totalExpenses = calculateExpensesTotal();
+
+      totalIncomeDisplay.textContent = formatCurrency(income);
+      totalSavingsDisplay.textContent = `${formatCurrency(savings)} (${savingsTarget}%)`;
+      totalExpensesDisplay.textContent = formatCurrency(totalExpenses);
+    }
+
+    function renderExpensesTable() {
+      expenseTableBody.innerHTML = "";
+      expenses.forEach((expense, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${expense.date}</td>
+          <td>${expense.category}</td>
+          <td>${formatCurrency(expense.amount)}</td>
+          <td>
+            <button onclick="deleteExpense(${index})" class="delete-btn">Delete</button>
+          </td>
+        `;
+        expenseTableBody.appendChild(row);
+      });
+    }
+
+    function updateCharts() {
+      const categories = [...new Set(expenses.map(e => e.category))];
+      const categoryTotals = {};
+      categories.forEach(cat => {
+        categoryTotals[cat] = expenses
+          .filter(e => e.category === cat)
+          .reduce((sum, e) => sum + e.amount, 0);
+      });
+
+      if (expenseChart) expenseChart.destroy();
+      expenseChart = new Chart(expenseChartCtx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(categoryTotals),
+          datasets: [{
+            data: Object.values(categoryTotals),
+            backgroundColor: [
+              '#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#64748b'
+            ]
+          }]
+        },
+        options: {
+          plugins: { title: { display: true, text: 'Expenses by Category' } }
+        }
+      });
+
+      if (savingsChart) savingsChart.destroy();
+      savingsChart = new Chart(savingsChartCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Savings', 'Expenses', 'Remaining'],
+          datasets: [{
+            data: [calculateSavings(), calculateExpensesTotal(), getRemainingBalance()],
+            backgroundColor: ['#10b981', '#ef4444', '#3b82f6']
+          }]
+        },
+        options: {
+          plugins: { title: { display: true, text: 'Money Allocation' } }
+        }
+      });
+    }
+
+    function updateUI() {
+      updateIncomeSection();
+      updateSummary();
+      renderExpensesTable();
+      updateCharts();
+      checkBudgetAlert(); // <-- Call alert check after UI update
+    }
+
+    // ===== EVENT HANDLERS ===== //
+    function handleIncomeUpdate(e) {
+      e.preventDefault();
+      income = parseFloat(incomeInput.value) || 0;
+      savingsTarget = parseFloat(savingsTargetInput.value) || 20;
+      saveIncome(income);
+      saveSavingsTarget(savingsTarget);
+      updateUI();
+    }
+
+    function handleAddExpense(e) {
+      e.preventDefault();
+      const date = document.getElementById("expense-date").value;
+      const category = document.getElementById("expense-category").value;
+      const amount = parseFloat(document.getElementById("expense-amount").value);
+
+      if (!date || !category || isNaN(amount) || amount <= 0) {
+        alert("Please fill all fields correctly");
+        return;
+      }
+
+      expenses.push({ date, category, amount });
+      saveExpenses(expenses);
+      updateUI();
+      expenseForm.reset();
+    }
+
+    function deleteExpense(index) {
+      if (confirm("Are you sure you want to delete this expense?")) {
+        expenses.splice(index, 1);
+        saveExpenses(expenses);
+        updateUI();
+      }
+    }
+  
+  function checkBudgetAlert() {
+    // Use actual state variables
+    const totalExpenses = calculateExpensesTotal();
+    const threshold = income * 0.8;
+    const alertBox = document.getElementById('budget-alert');
+    if (totalExpenses > threshold && income > 0) {
+      alertBox.classList.remove('hidden');
+    } else {
+      alertBox.classList.add('hidden');
+    }
+  }
+
+    function toggleTheme() {
+      const currentTheme = document.body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', newTheme);
+    }
+
+    // ===== INITIALIZATION ===== //
+    function init() {
+      loadData();
+      updateIncomeBtn.addEventListener('click', handleIncomeUpdate);
+      expenseForm.addEventListener('submit', handleAddExpense);
+      toggleThemeBtn.addEventListener('click', toggleTheme);
+      updateUI();
+    }
+    window.deleteExpense = deleteExpense;
+    init();
+  </script>
+</body>
+</html>
