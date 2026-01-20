@@ -33,7 +33,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - **Browser LocalStorage**
 
 ---
-📊 Application Modules
+## 📊 Application Modules
 
 - Income & Savings Module
 - Expense Management Module
@@ -43,7 +43,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - Budget Alert System
 
 ---
-🔮 Future Enhancements
+## 🔮 Future Enhancements
 - Export data to CSV / PDF
 - User login & authentication
 - Cloud database integration
