@@ -22,7 +22,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - 💾 Persistent data storage using **LocalStorage**
 - 📱 Responsive and user-friendly UI
 
-
+---
 
 ## 🛠️ Tech Stack
 
