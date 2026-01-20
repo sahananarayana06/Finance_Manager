@@ -30,15 +30,12 @@
     function formatCurrency(amount) {
       return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount);
     }
-
     function calculateSavings() {
       return income * (savingsTarget / 100);
     }
-
     function calculateExpensesTotal() {
       return expenses.reduce((sum, expense) => sum + expense.amount, 0);
     }
-
     function getRemainingBalance() {
       return income - calculateSavings() - calculateExpensesTotal();
     }
@@ -47,25 +44,19 @@
     function saveIncome(value) {
       localStorage.setItem(STORAGE_KEYS.INCOME, JSON.stringify(value));
     }
-
     function saveSavingsTarget(value) {
       localStorage.setItem(STORAGE_KEYS.SAVINGS_TARGET, JSON.stringify(value));
     }
-
     function saveExpenses(expenses) {
       localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses));
     }
-
     function loadData() {
       const savedIncome = localStorage.getItem(STORAGE_KEYS.INCOME);
       income = savedIncome ? JSON.parse(savedIncome) : 0;
-
       const savedSavingsTarget = localStorage.getItem(STORAGE_KEYS.SAVINGS_TARGET);
       savingsTarget = savedSavingsTarget ? JSON.parse(savedSavingsTarget) : 20;
-
       const savedExpenses = localStorage.getItem(STORAGE_KEYS.EXPENSES);
       expenses = savedExpenses ? JSON.parse(savedExpenses) : [];
-
       updateUI();
     }
 
@@ -78,7 +69,6 @@
     function updateSummary() {
       const savings = calculateSavings();
       const totalExpenses = calculateExpensesTotal();
-
       totalIncomeDisplay.textContent = formatCurrency(income);
       totalSavingsDisplay.textContent = `${formatCurrency(savings)} (${savingsTarget}%)`;
       totalExpensesDisplay.textContent = formatCurrency(totalExpenses);
@@ -212,4 +202,5 @@
       updateUI();
     }
     window.deleteExpense = deleteExpense;
+
     init();
