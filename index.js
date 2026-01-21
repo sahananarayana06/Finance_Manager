@@ -2,7 +2,7 @@
     const STORAGE_KEYS = {
       INCOME: "finance_manager_income",
       SAVINGS_TARGET: "finance_manager_savings_target",
-      EXPENSES: "finance__expenses"
+      EXPENSES: "finance_manager_expenses"
     };
 
     // DOM Elements
@@ -204,4 +204,5 @@
     window.deleteExpense = deleteExpense;
 
     init();
+
 
