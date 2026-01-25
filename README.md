@@ -41,6 +41,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - Data Visualization (Charts)
 - Theme Controller
 - Budget Alert System
+- Theme Controller
 
 ---
 ## 🔮 Future Enhancements
