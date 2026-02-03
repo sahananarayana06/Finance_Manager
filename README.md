@@ -27,8 +27,8 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 ## 🛠️ Tech Stack
 
 - **HTML5**
-- **CSS3 or Tailwind**
-- **JavaScript (Vanilla JS)**
+- **CSS3**
+- **JavaScript**
 - **Chart.js**
 - **Browser LocalStorage**
 
