@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
 }   
-     
+     /*For theme: black and white*/
      [data-theme="dark"] {
       --bg-primary: #1a202c;
       --bg-secondary: #2d3748;
@@ -163,6 +163,7 @@
      .hidden {
        display: none;
     }
+
 
 
 
