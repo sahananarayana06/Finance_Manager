@@ -1,4 +1,9 @@
-    [data-theme="dark"] {
+*{
+    margin: 0;
+    padding: 0;
+}   
+     
+     [data-theme="dark"] {
       --bg-primary: #1a202c;
       --bg-secondary: #2d3748;
       --text-primary: #f7fafc;
@@ -158,6 +163,7 @@
      .hidden {
        display: none;
     }
+
 
 
 
