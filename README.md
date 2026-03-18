@@ -4,6 +4,7 @@ A modern, lightweight **Finance Manager Web Application** that helps users track
 
 ---
 
+
 ## 📌 Overview
 
 Finance Manager is a browser-based personal finance tracker built using HTML, CSS, and JavaScript.  
