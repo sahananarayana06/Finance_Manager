@@ -46,6 +46,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - Theme Controller
 
 ---
+
 ## 🔮 Future Enhancements
 - Export data to CSV / PDF
 - User login & authentication
