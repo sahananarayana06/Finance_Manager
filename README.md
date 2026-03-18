@@ -24,7 +24,6 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 
 ---
 
-
 ## 🛠️ Tech Stack
 
 - **HTML5**
