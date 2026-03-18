@@ -34,6 +34,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - **Browser LocalStorage**
 
 ---
+
 ## 📊 Application Modules
 
 - Income & Savings Module
