@@ -1,14 +1,12 @@
 # 💰 Finance Manager
 
 A modern, lightweight **Finance Manager Web Application** that helps users track their **income, savings, and expenses** efficiently with visual charts and smart alerts.
-
 ---
 
 ## 📌 Overview
 
 Finance Manager is a browser-based personal finance tracker built using HTML, CSS, and JavaScript.  
 It allows users to manage monthly income, monitor spending habits, and stay within budget using real-time insights.
-
 ---
 
 ## ✨ Key Features
@@ -21,7 +19,6 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - 🌓 **Light / Dark theme toggle**
 - 💾 Persistent data storage using **LocalStorage**
 - 📱 Responsive and user-friendly UI
-
 ---
 
 ## 🛠️ Tech Stack
