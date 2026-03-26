@@ -47,6 +47,7 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 ---
 
 ## 🔮 Future Enhancements
+
 - Export data to CSV / PDF
 - User login & authentication
 - Cloud database integration
