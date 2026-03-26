@@ -53,4 +53,4 @@ It allows users to manage monthly income, monitor spending habits, and stay with
 - Cloud database integration
 - Monthly & yearly financial reports
 
---+
+---
