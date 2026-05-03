@@ -19,7 +19,7 @@ Finance Manager is a browser-based personal finance tracker built using HTML, CS
 - ⚠️ **Automatic alert** when expenses exceed 80% of income
 - 🌓 **Light / Dark theme toggle**
 - 💾 Persistent data storage using **LocalStorage**
-- 📱 Responsive and user-friendly UI
+
 
 ---
 
