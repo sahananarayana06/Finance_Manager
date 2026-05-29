@@ -15,7 +15,7 @@
       --bg-secondary: #ffffff;
       --text-primary: #1a202c;
       --text-secondary: #4a5568;
-      --accent-color: #4299e1;
+      --accent-color: #4299e1; 
     }
     body {
       background-color: var(--bg-primary);
