@@ -34,6 +34,7 @@ Finance Manager is a browser-based personal finance tracker built using HTML, CS
 ---
 
 ## 📊 Application Modules
+
 - Income & Savings Module
 - Expense Management Module
 - Expense Table & Deletion
