@@ -9,6 +9,7 @@ Finance Manager is a browser-based personal finance tracker built using HTML, CS
 
 ---
 
+
 ## ✨ Key Features
 - ✅ Set and update **monthly income**
 - 🎯 Define a **savings target (%)**
