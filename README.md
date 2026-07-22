@@ -22,7 +22,6 @@ Finance Manager is a browser-based personal finance tracker built using HTML, CS
 ---
 
 ## 🛠️ Tech Stack
-
 - **HTML5**
 - **CSS3**
 - **JavaScript**
