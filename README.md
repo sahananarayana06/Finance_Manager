@@ -1,4 +1,4 @@
-# 💰 Finance Manager
+ # 💰 Finance Manager
 
 A modern, lightweight **Finance Manager Web Application** that helps users track their **income, savings, and expenses** efficiently with visual charts and smart alerts.
 
